@@ -1,0 +1,14 @@
+db.grades53.aggregate([
+	{ $unwind: "$scores"},
+    { $match : {
+        $or: [ { "scores.type": "exam" }, { "scores.type": "homework" } ]
+    	}
+    },
+    { $group :
+         { _id : {"class_id": "$class_id", "student_id": "$student_id"},
+           gpa : { $avg : "$scores.score" } } },
+    { $group :
+         { _id : "$_id.class_id",
+           gpa_class : { $avg : "$gpa" } } },
+   { $sort: {"gpa_class": -1} },
+])

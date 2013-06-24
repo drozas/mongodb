@@ -1,0 +1,6 @@
+db.messages.find({'headers.From' : 'andrew.fastow@enron.com', 'headers.To': { $in: ['john.lavorato@enron.com'] }})
+
+db.messages.find({'headers.From' : 'andrew.fastow@enron.com'})
+
+db.messages.find({'header.To': { $in: ['john.lavorato@enron.com'] }})
+

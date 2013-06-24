@@ -1,0 +1,17 @@
+HW5.2
+
+db.zips.aggregate([
+    { $match : {
+        $or: [ { state: 'CA' }, { state: 'NY' } ]
+    	}
+    },
+    { $group :
+         { _id : {"city": "$city", "state": "$state"},
+           popu : { $sum : "$pop" } } },
+	{ $match : {
+        "popu" : {$gt: 25000} ,
+    }},
+    { $group :
+         { _id : null,
+           average_pop : { $avg : "$popu" } } }
+])
